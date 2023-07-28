@@ -152,18 +152,13 @@ const AccountDialog = ({ open, handleClose }: AccountDialogProps) => {
               Resend Verification Email
             </Button>
           </Grid>
-          {/* Implement option to delete account with proper confirmation steps */}
-
-          {/* Implement list of connected accounts and option to disconnect */}
-          <Grid item xs={12}>
-            <Button variant="text">Disconnect Account</Button>
-          </Grid>
           {/* Implement option to logout */}
           <Grid item xs={12}>
             <Button variant="text" color="warning" onClick={() => logout()}>
               Logout
             </Button>
           </Grid>
+          {/* Implement option to delete account with proper confirmation steps */}
           <Grid item xs={12}>
             <Button variant="text" color="error">
               Delete Account
