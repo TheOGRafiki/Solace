@@ -55,31 +55,9 @@ const ProfileCard = () => {
       >
         <Typography variant="h5" gutterBottom>
           {name}
-          {showEditIcons && isAuthenticated && (
-            <IconButton
-              aria-label="Edit Name"
-              onClick={() => {
-                // Handle the edit action here
-                console.log("Edit name clicked");
-              }}
-            >
-              <EditIcon /> {/* Replace with the edit icon component */}
-            </IconButton>
-          )}
         </Typography>
         <Typography variant="body1" gutterBottom>
           @{username}
-          {showEditIcons && isAuthenticated && (
-            <IconButton
-              aria-label="Edit Username"
-              onClick={() => {
-                // Handle the edit action here
-                console.log("Edit username clicked");
-              }}
-            >
-              <EditIcon /> {/* Replace with the edit icon component */}
-            </IconButton>
-          )}
         </Typography>
         <Typography variant="body2" color="textSecondary">
           {bio}

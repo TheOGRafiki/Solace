@@ -13,13 +13,17 @@ import * as React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import SolaceLogo from "../assets/solace-logo-big.png";
 import { Typography } from "@mui/material";
+import { useState } from "react";
+import AccountDialog from "./AccountDialog";
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Account", "Logout"];
 
 const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
+
+  const [open, setOpen] = useState(false);
 
   const { user, logout, isAuthenticated, loginWithRedirect } = useAuth0();
 
@@ -34,13 +38,10 @@ const ResponsiveAppBar = () => {
   const handleUserButtons = (setting: string) => {
     switch (setting) {
       case "Profile":
-        console.log("Profile");
+        window.location.href = `/@${user?.nickname}`;
         break;
       case "Account":
-        console.log("Account");
-        break;
-      case "Dashboard":
-        console.log("Dashboard");
+        setOpen(true);
         break;
       case "Logout":
         logout();
@@ -57,6 +58,7 @@ const ResponsiveAppBar = () => {
         backgroundColor: "black",
       }}
     >
+      <AccountDialog open={open} handleClose={() => setOpen(false)} />
       <Container maxWidth="xl">
         <Toolbar
           disableGutters

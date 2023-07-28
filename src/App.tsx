@@ -22,7 +22,7 @@ const App = () => {
     setUserInformation(res.data);
   };
 
-const updateBackendData = async () => {
+const syncAuth0ToMongo = async () => {
   try {
     // Wait 1 second to make sure the user information is set
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -31,6 +31,7 @@ const updateBackendData = async () => {
       name: user?.given_name + " " + user?.family_name,
       email: user?.email,
       profile_picture: user?.picture,
+      username: user?.nickname,
     };
 
     const response = await axios.post(
@@ -47,15 +48,13 @@ const updateBackendData = async () => {
 
 
   useEffect(() => {
-    const username = new URLSearchParams(window.location.search).get(
-      "username"
-    );
+    const username = window.location.href.split("/")[window.location.href.split("/").length - 1].replace("@", "")
     setUsername(username);
   }, [window.location]);
 
   useEffect(() => {
     if (isAuthenticated && user) {
-      updateBackendData();
+      syncAuth0ToMongo();
     }
   }, [isAuthenticated, user]);
 
