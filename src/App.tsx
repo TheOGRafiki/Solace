@@ -1,16 +1,17 @@
 import { Box, ThemeProvider, createTheme } from "@mui/material";
 import ResponsiveAppBar from "./Components/ResponsiveAppBar";
 import { useEffect, useState } from "react";
-import SearchBar from "./Components/SearchBar";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useUserContext } from "./Components/UserContext";
+import ProfileCard from "./Components/ProfileCard";
 
 export const themeColor = "#75FBFA";
 
 const App = () => {
-  const { isAuthenticated, user, logout } = useAuth0();
+  const { isAuthenticated, user } = useAuth0();
   const [username, setUsername] = useState<string | null>(null);
-  const [userInformation, setUserInformation] = useState<any>(null);
+  const { userInformation, setUserInformation } = useUserContext(); // Use the UserContext
   // * try to get a username from the url
   // * if there is a url we can go ahead and get the user information otherwise show a search bar
 
@@ -18,22 +19,32 @@ const App = () => {
     const res = await axios.post(`
       https://us-east-1.aws.data.mongodb-api.com/app/data-tyxwp/endpoint/get_user?username=${username}
     `);
-    setUserInformation(res.data.user);
+    setUserInformation(res.data);
   };
 
-  const updateBackendData = async () => {
-    const res = await axios.post(
-      `
-      https://us-east-1.aws.data.mongodb-api.com/app/data-tyxwp/endpoint/update_user?userId=${user?.sub}
-    `,
-      {
-        profilePicture: user?.picture,
-        firstName: user?.given_name,
-        lastName: user?.family_name,
-      }
+const updateBackendData = async () => {
+  try {
+    // Wait 1 second to make sure the user information is set
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    const body = {
+      name: user?.given_name + " " + user?.family_name,
+      email: user?.email,
+      profile_picture: user?.picture,
+    };
+
+    const response = await axios.post(
+      `https://us-east-1.aws.data.mongodb-api.com/app/data-tyxwp/endpoint/update_user?id=${user?.sub}`,
+      body
     );
-    setUserInformation(res.data.user);
-  };
+
+    console.log("User data updated:", response.data);
+  } catch (error) {
+    console.error("Error updating user data:", error);
+    // Handle the error appropriately (e.g., show an error message to the user)
+  }
+};
+
 
   useEffect(() => {
     const username = new URLSearchParams(window.location.search).get(
@@ -85,7 +96,7 @@ const App = () => {
           backgroundColor: "black",
         }}
       >
-        {username ? <h1>{username}</h1> : <SearchBar />}
+        {userInformation && <ProfileCard />}
       </Box>
     </ThemeProvider>
   );
