@@ -18,7 +18,7 @@
 
 
 <div style="text-align: center;">
-    <img src="src/assets/Screenshot.png" width=1448 height=633/>
+    <img src="src/assets/Screenshot.png" />
 </div>
 
 <hr />
