@@ -18,10 +18,11 @@
 
 
 <div style="text-align: center;">
-    <img src="src/assets/Screenshot.png" width=1920 height=450/>
+    <img src="src/assets/Screenshot.png" width=1448 height=633/>
 </div>
 
 <hr />
+
 ## Table Of Contents
 
 - [Table Of Contents](#table-of-contents)
