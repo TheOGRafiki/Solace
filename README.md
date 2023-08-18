@@ -1,6 +1,6 @@
 <div style="text-align: center;">
 <h1 align="center">
-    Cloud Front End
+    Solace
     <br />
     <br />
     <img src="src/assets/solace-logo-big.png" width=100/>
