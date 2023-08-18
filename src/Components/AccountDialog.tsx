@@ -9,6 +9,7 @@ import {
   DialogContent,
   TextField,
   Divider,
+  LinearProgress,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
 
@@ -25,7 +26,7 @@ const AccountDialog = ({ open, handleClose }: AccountDialogProps) => {
   const [imageHover, setImageHover] = useState(false);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LinearProgress />;
   }
 
   if (error) {

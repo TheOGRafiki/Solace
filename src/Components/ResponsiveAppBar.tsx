@@ -38,7 +38,7 @@ const ResponsiveAppBar = () => {
   const handleUserButtons = (setting: string) => {
     switch (setting) {
       case "Profile":
-        window.location.href = `/@${user?.nickname}`;
+        window.location.href = `/?username=${user?.nickname}`;
         break;
       case "Account":
         setOpen(true);
@@ -68,7 +68,7 @@ const ResponsiveAppBar = () => {
             alignItems: "center", // Center items vertically
           }}
         >
-          <Avatar alt="Solace Logo" src={SolaceLogo} sx={{ mr: 1 }} />
+          <Avatar alt="Solace Logo" src={SolaceLogo} sx={{ mr: 1 }} onClick={() => window.location.href = "/"}/>
           <Typography
             variant="h6"
             noWrap
@@ -77,7 +77,6 @@ const ResponsiveAppBar = () => {
               display: { xs: "none", md: "flex" },
               fontWeight: 700,
               letterSpacing: ".3rem",
-              // color: themeColor,
               textDecoration: "none",
             }}
           >

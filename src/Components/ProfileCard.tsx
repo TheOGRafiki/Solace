@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -17,13 +17,24 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const ProfileCard = () => {
   const { userInformation } = useUserContext(); 
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, user } = useAuth0();
   const { name, profile_picture, username, bio, links } = userInformation!;
   const [showEditIcons, setShowEditIcons] = useState(false);
 
   const handlePreviewButtonClick = () => {
     setShowEditIcons(!showEditIcons);
   };
+
+  useEffect(() => {
+    // Check if the user in the params is the same as the logged in user
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get("username");
+    const auth0_username = user?.nickname;
+    console.log(username, auth0_username, isAuthenticated);
+    if (username === user?.nickname && isAuthenticated) {
+      setShowEditIcons(true);
+    }
+  }, [window.location.pathname])
 
   return (
     <Card
@@ -98,7 +109,7 @@ const ProfileCard = () => {
                   {link.title}
                 </Typography>
               </Link>
-              {showEditIcons && isAuthenticated && (
+              {showEditIcons && (
                 <IconButton
                   aria-label={`Edit Link ${index + 1}`}
                   onClick={() => {
@@ -116,7 +127,7 @@ const ProfileCard = () => {
       <CardActions sx={{
         justifyContent: "center"
       }}> 
-        {isAuthenticated && (
+        {showEditIcons && (
           <Box display="flex" justifyContent="center" mt={1}>
             <Button variant="outlined" onClick={handlePreviewButtonClick}>
               {showEditIcons ? "Preview" : "Edit"}
