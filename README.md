@@ -1,6 +1,6 @@
 <div style="text-align: center;">
 <h1 align="center">
-    Cloud Front End
+    Solace
     <br />
     <br />
     <img src="src/assets/solace-logo-big.png" width=100/>
@@ -16,6 +16,10 @@
 </div>
 <hr />
 
+
+<div style="text-align: center;">
+    <img src="src/assets/Screenshot.png" width=1920 height=450/>
+</div
 ## Table Of Contents
 
 - [Table Of Contents](#table-of-contents)
