@@ -1,34 +1,22 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import SearchIcon from "@mui/icons-material/Search";
-import {
-  Box,
-  CircularProgress,
-  Grid,
-  IconButton,
-  TextField,
-  ThemeProvider,
-  createTheme,
-} from "@mui/material";
+import { Box, ThemeProvider, createTheme } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 import ProfileCard from "./Components/ProfileCard";
 import ResponsiveAppBar from "./Components/ResponsiveAppBar";
 import { useUserContext } from "./Components/UserContext";
 
-  import "react-toastify/dist/ReactToastify.css";
-
+import "react-toastify/dist/ReactToastify.css";
+import Typewriter from "./Components/Typewriter";
 
 export const themeColor = "#75FBFA";
 
 const App = () => {
   const { isAuthenticated, user } = useAuth0();
-  const [searchText, setSearchText] = useState(""); // The text in the search bar
-  const [searchLoading, setSearchLoading] = useState(false); // Whether the search bar is loading or not
-
-  const [searchError, setSearchError] = useState(false); // The error message for the search bar
   const { userInformation, setUserInformation } = useUserContext(); // Use the UserContext
+  const isMobile = window.innerWidth < 600;
 
   const syncAuth0ToMongo = async () => {
     try {
@@ -53,7 +41,6 @@ const App = () => {
   };
 
   const getUserData = async (username: string, tryCounter: number) => {
-    setSearchLoading(true);
     try {
       const res = await axios.post(`
       https://us-east-1.aws.data.mongodb-api.com/app/data-tyxwp/endpoint/get_user?username=${username}
@@ -65,11 +52,9 @@ const App = () => {
       if (tryCounter < 3) {
         getUserData(username, tryCounter + 1);
       } else {
-        setSearchError(true);
         toast.error("Error getting user data");
       }
     }
-    setSearchLoading(false);
   };
 
   // Check if any user is in the url path
@@ -108,12 +93,6 @@ const App = () => {
     },
   });
 
-  useEffect(() => {
-    setTimeout(() => {
-      setSearchError(false);
-    }, 3000);
-  }, [searchError]);
-
   return (
     <ThemeProvider theme={theme}>
       <ToastContainer
@@ -134,61 +113,20 @@ const App = () => {
           justifyContent: "center",
           alignItems: "center",
           width: "100%",
-          backgroundColor: "black",
+          background: "linear-gradient(75deg, #75FBFA 0%, #000000 100%)",
         }}
       >
         {userInformation ? (
           <ProfileCard />
         ) : (
-          <Grid
-            container
-            sx={{
-              justifyContent: "center", // Center the content horizontally
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
-            <Grid item xs={8} md={6} lg={7}>
-              <TextField
-                label="Search"
-                variant="standard"
-                fullWidth
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-              />
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              md={6}
-              lg={1}
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              {/* If the search bar is loading, show a loading icon, otherwise show the search icon */}
-              {searchLoading ? (
-                <CircularProgress />
-              ) : (
-                <IconButton
-                  sx={{
-                    display: "flex", // Display as flex container
-                    justifyContent: "center", // Center the content horizontally
-                    borderRadius: "1rem",
-                  }}
-                  onClick={() => {
-                    // Handle the search action here
-                    window.location.href = `/?username=${searchText}`;
-                  }}
-                  disabled={searchText === ""}
-                >
-                  <SearchIcon sx={{ color: searchError ? "red" : "white" }} />
-                </IconButton>
-              )}
-            </Grid>
-          </Grid>
+          <Typewriter
+            text="SOLACE"
+            delay={350}
+            mainFontSize={isMobile ? "3rem" : "5rem"}
+            subText="Inspired by LinkTree ©"
+            subTextDelay={100}
+            subFontSize={isMobile ? "1rem" : "1.5rem"}
+          />
         )}
       </Box>
     </ThemeProvider>

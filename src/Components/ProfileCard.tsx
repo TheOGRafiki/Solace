@@ -197,7 +197,9 @@ const ProfileCard = () => {
                     </Grid>
                     <Grid item xs={4}>
                       <Button
-                        onClick={() => handleSaveLink("Link updated successfully")}
+                        onClick={() =>
+                          handleSaveLink("Link updated successfully")
+                        }
                         endIcon={<Save />}
                         disabled={
                           localLinks[index].title === "" ||
@@ -224,9 +226,12 @@ const ProfileCard = () => {
                           },
                         }}
                       >
-                        <Tooltip title={link.description || ""}>
+                        <Tooltip
+                          title={<Typography variant="body2">{link.description}</Typography>}
+                          arrow
+                        >
                           <Typography
-                            variant="body2"
+                            variant="subtitle1"
                             color="primary"
                             sx={{
                               display: "inline-block",
@@ -267,26 +272,28 @@ const ProfileCard = () => {
               flexDirection: "column",
             }}
           >
-            <Grid item xs={12}>
-              <Button
-                variant="text"
-                onClick={() => {
-                  const newLink = {
-                    title: "New Link # " + (localLinks.length + 1).toString(),
-                    url: "www.example.com",
-                    description: "This is a new link",
-                  };
-                  const newLinks = [...localLinks, newLink];
-                  setLocalLinks(newLinks);
-                  setEditLinkIndex(localLinks.length + 1);
+            {showEditIcons && (
+              <Grid item xs={12}>
+                <Button
+                  variant="text"
+                  onClick={() => {
+                    const newLink = {
+                      title: "New Link # " + (localLinks.length + 1).toString(),
+                      url: "www.example.com",
+                      description: "This is a new link",
+                    };
+                    const newLinks = [...localLinks, newLink];
+                    setLocalLinks(newLinks);
+                    setEditLinkIndex(localLinks.length + 1);
 
-                  handleSaveLink("Link added successfully");
-                }}
-                endIcon={<Add />}
-              >
-                Add Link
-              </Button>
-            </Grid>
+                    handleSaveLink("Link added successfully");
+                  }}
+                  endIcon={<Add />}
+                >
+                  Add Link
+                </Button>
+              </Grid>
+            )}
             <Grid item xs={12}>
               <Button
                 variant="text"
