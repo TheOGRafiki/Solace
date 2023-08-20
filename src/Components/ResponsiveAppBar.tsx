@@ -71,7 +71,7 @@ const ResponsiveAppBar = () => {
           <Avatar
             variant="square"
             alt="Solace Logo"
-            src="../assets/Transparent_Solace.png"
+            src="src/assets/Transparent_Solace.png"
             sx={{ width: 50, height: 50, "&:hover": { cursor: "pointer" } }}
             onClick={() => {
               window.location.href = "/";
@@ -115,7 +115,10 @@ const ResponsiveAppBar = () => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Button onClick={() => handleUserButtons(setting)} disabled={setting === "Account"}>
+                    <Button
+                      onClick={() => handleUserButtons(setting)}
+                      disabled={setting === "Account"}
+                    >
                       {setting}
                     </Button>
                   </MenuItem>
