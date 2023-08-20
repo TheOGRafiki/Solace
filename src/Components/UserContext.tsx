@@ -11,7 +11,7 @@ export interface User {
   // Add other user properties as needed
 }
 
-interface Link {
+export interface Link {
     title: string
     url: string
     description: string
