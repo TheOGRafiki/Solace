@@ -18,8 +18,8 @@
 
 
 <div style="text-align: center;">
-    <img src="public/Screenshot_Home.png" />
-    <img src="public/Screenshot_Profile.png" />
+    <img src="./src/Screenshot_Home.png" />
+    <img src="./src/Screenshot_Profile.png" />
 </div>
 
 <hr />

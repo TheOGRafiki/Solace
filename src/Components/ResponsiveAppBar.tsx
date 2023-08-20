@@ -71,7 +71,7 @@ const ResponsiveAppBar = () => {
           <Avatar
             variant="square"
             alt="Solace Logo"
-            src="../public/Transparent_Solace.png"
+            src="../Transparent_Solace.png"
             sx={{ width: 50, height: 50, "&:hover": { cursor: "pointer" } }}
             onClick={() => {
               window.location.href = "/";
