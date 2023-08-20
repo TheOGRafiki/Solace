@@ -3,7 +3,7 @@
     Solace
     <br />
     <br />
-    <img src="src/assets/solace-logo-big.png" width=100/>
+    <img src="public/Transparent_Solace.png" width=100/>
 </h1>
 
 ![React Version](https://img.shields.io/badge/React-18.2.0-blue.svg)
@@ -18,7 +18,8 @@
 
 
 <div style="text-align: center;">
-    <img src="src/assets/Screenshot.png" />
+    <img src="public/Screenshot_Home.png" />
+    <img src="public/Screenshot_Profile.png" />
 </div>
 
 <hr />
