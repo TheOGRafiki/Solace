@@ -7,10 +7,6 @@ import { UserContextProvider } from "./Components/UserContext.tsx";
 const DOMAIN = import.meta.env.VITE_AUTH0_DOMAIN;
 const CLIENT_ID = import.meta.env.VITE_AUTH0_CLIENT_ID;
 
-if (!DOMAIN || !CLIENT_ID) {
-  throw new Error("Missing Auth0 environment variables");
-}
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
   // <React.StrictMode>
   <>

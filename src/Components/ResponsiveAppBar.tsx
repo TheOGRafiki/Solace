@@ -1,27 +1,24 @@
-import AppBar from "@mui/material/AppBar";
-import Avatar from "@mui/material/Avatar";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Toolbar from "@mui/material/Toolbar";
-import Tooltip from "@mui/material/Tooltip";
-import * as React from "react";
-
+import LoginIcon from "@mui/icons-material/Login";
 import { useAuth0 } from "@auth0/auth0-react";
-import SolaceLogo from "../assets/solace-logo-big.png";
-import { Typography } from "@mui/material";
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Tooltip,
+} from "@mui/material";
 import { useState } from "react";
 import AccountDialog from "./AccountDialog";
 
 const settings = ["Profile", "Account", "Logout"];
 
 const ResponsiveAppBar = () => {
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const [open, setOpen] = useState(false);
 
@@ -55,7 +52,9 @@ const ResponsiveAppBar = () => {
     <AppBar
       position="static"
       sx={{
-        backgroundColor: "black",
+        // * white to grey diagonal gradient
+        background:
+          "linear-gradient(45deg, #393939 0%, #393939 50%, #393939 100%)",
       }}
     >
       <AccountDialog open={open} handleClose={() => setOpen(false)} />
@@ -68,8 +67,17 @@ const ResponsiveAppBar = () => {
             alignItems: "center", // Center items vertically
           }}
         >
-          <Avatar alt="Solace Logo" src={SolaceLogo} sx={{ mr: 1 }} onClick={() => window.location.href = "/"}/>
-          <Typography
+          {/* Should go to home page when clicked */}
+          <Avatar
+            variant="square"
+            alt="Solace Logo"
+            src="src/assets/Transparent_Solace.png"
+            sx={{ width: 50, height: 50, "&:hover": { cursor: "pointer" } }}
+            onClick={() => {
+              window.location.href = "/";
+            }}
+          />
+          {/* <Typography
             variant="h6"
             noWrap
             sx={{
@@ -79,9 +87,10 @@ const ResponsiveAppBar = () => {
               letterSpacing: ".3rem",
               textDecoration: "none",
             }}
+            color={"primary"}
           >
             SOLACE
-          </Typography>
+          </Typography> */}
           {isAuthenticated ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
@@ -115,10 +124,14 @@ const ResponsiveAppBar = () => {
             </Box>
           ) : (
             <Button
-              variant="text"
+              variant="outlined"
               color="primary"
               onClick={() => {
                 loginWithRedirect();
+              }}
+              endIcon={<LoginIcon />}
+              sx={{
+                fontWeight: 1200,
               }}
             >
               Log in
